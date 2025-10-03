@@ -1,48 +1,78 @@
-# Data Visualization Project
+# Global Longevity Explorer — Project Proposal (First Draft)
 
-## Data
+## One-sentence pitch
+An interactive explorer of **life expectancy by country (2000–present)** that lets you rank, compare, and track changes over time, with context like the global average.
 
-The data I propose to visualize for my project is ...
+---
 
+## Data Sources
 
-## Questions & Tasks
+- **Life Expectancy (UN World Population Prospects via Our World in Data)**  
+  About/notes: https://ourworldindata.org/life-expectancy  
+  Data (UNWPP series, used in this project): https://ourworldindata.org/grapher/life-expectancy-unwpp  
+  **Columns used:** `Entity`, `Year`, `life_expectancy` (subset 2000–present)
 
-The following tasks and questions will drive the visualization and interaction decisions for this project:
+- **(Exploratory / future)** **Mauna Loa CO₂ (NOAA GML)** — long-term monthly CO₂ at Mauna Loa  
+  Dataset hub: https://gml.noaa.gov/ccgg/trends/data.html
 
- * (insert your question or task here) How does the X vary over time?
- * (insert your question or task here) Is there any correlation between X and Y?
- * (insert your question or task here) Are there interesting spatial patterns in X?
- * (insert your question or task here) How many X are there across different Y?
+- **(Exploratory / future)** **USGS Earthquakes GeoJSON feeds** — recent quakes with mag/depth  
+  Docs: https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php
 
-## Sketches
+---
 
-(insert one or more hand-drawn sketches of interactive visualizations that you imagine)
-(describe each sketch - how is the data visualized, what are the interactions, and how do these relate to the questions/tasks)
+## Questions & User Tasks
 
+- **Q1 — Ranking (single year):** Who are the top/bottom countries in a given year?  
+  **Task:** Choose year → read a **ranked bar chart**; search for a country; compare to **global average**.
 
-## Prototypes
+- **Q2 — Change (before/after):** Which countries improved the most/least since 2000?  
+  **Task:** Select two years → read a **slopegraph** with Δ labels.
 
-I’ve created a proof of concept visualization of this data. It's a ... and it shows ...
+- **Q3 — Trends (time series):** How did selected countries evolve over time?  
+  **Task:** Multi-select countries → view **lines over time** with latest value labels.
 
-[![image](https://user-images.githubusercontent.com/68416/65240758-9ef6c980-daff-11e9-9ffa-e35fc62683d2.png)](https://vizhub.com/curran/eab039ad1765433cb51aad167d9deae4)
+*(Stretch)* Compare regions/income groups; annotate events (pandemics, conflicts).
 
-(please put a screenshot of one or more visualizations of this dataset you already made, for previous assignments, and link to them)
+---
 
-You can put images into here by pasting them into issues.
+## Early Design & Supporting Work
 
-You can make images into links like this:
+- **Sketch directions (concepts explored):** Ranked dot/bar for a single year (with Year slider); slopegraph (2000→2023); small-multiples variants for comparisons.  
+- **Dataset explorations on VizHub (supporting work):**  
+  - Life Expectancy (OWID/UNWPP) — data prep/exploration:  
+    https://vizhub.com/abhyudaithakur/47a368e669ca4722958ffd7c898e5d2a  
+  - Mauna Loa CO₂ (NOAA GML) — data preview (for future comparison tasks):  
+    https://vizhub.com/abhyudaithakur/454cd31d44d84dcebf73c998b0d8aa24  
+  - USGS Earthquakes (GeoJSON) — data preview (for future design ideas):  
+    https://vizhub.com/abhyudaithakur/05a5a94131a64b42b3b41720fe172e47
 
-```
-[![image](https://user-images.githubusercontent.com/68416/65240758-9ef6c980-daff-11e9-9ffa-e35fc62683d2.png)](https://vizhub.com/curran/eab039ad1765433cb51aad167d9deae4)
-```
+---
 
+## Prototypes (links)
 
-Also, you can study the [source](https://raw.githubusercontent.com/curran/dataviz-project-template-proposal/master/README.md) to figure out Markdown formatting. You can use the GitHub built-in editor to edit the document.
+- **Life Expectancy — Ranked Bars (React + D3)**  
+  Year slider, **sort toggle**, **inline highlight**, **global average** line  
+  https://vizhub.com/abhyudaithakur/573d1f71878c489eb3fe75b1bae8eac3
 
-## Open Questions
+---
 
-(describe any fear, uncertainty, or doubt you’re having about the feasibility of implementing the sketched system. For example, “I’m not sure where to get the geographic shapes to build a map from this data” or “I don’t know how to resolve the codes to meaningful names” … Feel free to delete this section if you’re confident.)
+## Technical Notes
 
-## Milestones
+- **Stack:** React + D3 (developed on VizHub).  
+- **Parsing:** robust CSV/TSV loader; detects delimiter; uses `Entity`, `Year`, `life_expectancy`.  
+- **Design choices:** large readable ticks; color not the only channel (value labels & avg rule); search highlights without hiding context (optional filter mode).
 
-(for each week, estimate what would be accomplised)
+---
+
+## Risks / Open Questions
+
+- Missing years for some countries; crowded labeling for very large Top-N; mobile layout & touch targets.
+
+---
+
+## Roadmap (rough)
+
+- **M1:** Polish ranked bars (legend/notes, mobile layout, performance tidy-ups).  
+- **M2:** Implement slopegraph (two selectable years) and a compare mode for 2–5 countries.  
+- **M3:** Narrative annotations + final README write-up; prepare final interactive for submission.
+
