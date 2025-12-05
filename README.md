@@ -1,64 +1,30 @@
-## Week — Start Polishing
+# Life Expectancy — Similarity Network
 
-**Live vizzes**
-- Map (Choropleth): https://vizhub.com/abhyudaithakur/573d1f71878c489eb3fe75b1bae8eac3
-- Similarity Network: https://vizhub.com/abhyudaithakur/15f5084b0d484251b93d37c1177abd1a
+**Live viz:** https://vizhub.com/abhyudaithakur/15f5084b0d484251b93d37c1177abd1a
 
-**Polish this week**
-- Clear titles/subtitles + short “how to use” hints.
-- Legend moved off the map; improved label contrast.
-- Network defaults tuned (2005–2023, r ≥ 0.65, Top-K = 5) for a readable first view.
-- Added **Reset** to restore defaults & unpin.
-- Interactive legend (hover highlight, click filter, Clear).
-- Tooltips show end-year value and Δ since start.
-- Light performance fixes (edge cap, debounced controls).
-
-**Why it matters**
-- Map = global context by year. Network = cohort discovery (regions, bridges).
-- The first impression is now self-explanatory for non-technical viewers.
-
-**Known limits**
-- Correlation depends on the selected time window; small islands have sparse data.
-
-**Next**
-- Persist node positions (URL/localStorage), export PNG/SVG, “top outliers” callouts.
-
-
-
-
-
-
-# Life Expectancy — Interactive Exploration
-
-**Live vizzes**
-- **Similarity Network (current)**: https://vizhub.com/abhyudaithakur/15f5084b0d484251b93d37c1177abd1a  
-- **World Map (previous milestone)**: https://vizhub.com/abhyudaithakur/573d1f71878c489eb3fe75b1bae8eac3
-
-## What’s here (week: Interaction + Color)
-- Switched from a static choropleth to an **interactive similarity network** (2000–2023).
-- **Nodes** = countries (size = latest life expectancy; **color = region** via Tableau10).
-- **Edges** connect countries with correlated trajectories (Pearson r).  
-- **Interactive legend**: hover to highlight, click to multi-select; **Clear** resets.
-- **Controls**: Start/End year, Top-K neighbors, Min-r threshold, Region filter, Search.
-- **Direct manipulation**: Drag nodes; **double-click** a node to unpin (toggle).
+## What it shows
+- **Nodes:** countries (size = end-year life expectancy; **color = region**).
+- **Edges:** connect the **Top-K** most correlated life-expectancy trajectories (Pearson *r*) within the selected year window.
+- This reveals regional clusters, bridges between regions, and outliers.
 
 ## How to use
-1. Choose a **year window** (Start/End).  
-2. Increase **Top-K** or lower **Min-r** to reveal more connections.  
-3. Use the **legend** to focus specific regions; combine with **search** for a country.  
-4. Drag important nodes to declutter; double-click to unpin if they’re fixed.
+1. Pick a **Start** and **End** year to define the window for correlation.
+2. Tune **Top-K** (neighbors per node) and **Min-r** (correlation threshold).
+3. Use the **legend** (hover to highlight, click to multi-select; **Clear** to reset).
+4. **Search** a country, **drag** nodes to declutter, **double-click** a node to unpin.
 
-## Insights this unlocks
-- Clear **regional clusters** and **convergence** after ~2010.  
-- **Bridge countries** connecting regions become visible when Min-r is moderate.  
-- Outliers (high LE with weakly correlated neighbors) stand out when Top-K is small.
+## This week’s finishing touches
+- rAF-throttled force tick (smoother interaction).
+- Safer link updates (`d.source.x/y`, `d.target.x/y`).
+- Defaults for a clean first view: **2005–2023**, **Top-K=5**, **Min-r=0.65**.
+- Tooltip now shows end-year value and **Δ** since start; legend has Clear.
 
 ## Data
-- UN WPP via Our World in Data (processed CSV with columns: `Entity, Code (ISO3), Year, life_expectancy`).
+- UN WPP via Our World in Data (`Entity, Code(ISO3), Year, life_expectancy`).
+- Regions joined from `world-countries@4` (GeoJSON).
 
-## Changelog
-- **This week**: interactive legend; node hover emphasis; region filter; search; layout polish.
-- **Prior**: choropleth with year slider, global average, better parsing of CSV.
+## Known limits
+- Correlation depends on the window; sparse small-island series may drop out.
 
-## Next steps
-- Tooltips with rank and delta since 2000; snapshot/export; save/restore layouts.
+## Next ideas
+- Persist node positions (URL/localStorage), rank callouts (top risers/decliners), export PNG/SVG.
