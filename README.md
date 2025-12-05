@@ -1,3 +1,33 @@
+## Week — Start Polishing
+
+**Live vizzes**
+- Map (Choropleth): https://vizhub.com/abhyudaithakur/573d1f71878c489eb3fe75b1bae8eac3
+- Similarity Network: https://vizhub.com/abhyudaithakur/15f5084b0d484251b93d37c1177abd1a
+
+**Polish this week**
+- Clear titles/subtitles + short “how to use” hints.
+- Legend moved off the map; improved label contrast.
+- Network defaults tuned (2005–2023, r ≥ 0.65, Top-K = 5) for a readable first view.
+- Added **Reset** to restore defaults & unpin.
+- Interactive legend (hover highlight, click filter, Clear).
+- Tooltips show end-year value and Δ since start.
+- Light performance fixes (edge cap, debounced controls).
+
+**Why it matters**
+- Map = global context by year. Network = cohort discovery (regions, bridges).
+- The first impression is now self-explanatory for non-technical viewers.
+
+**Known limits**
+- Correlation depends on the selected time window; small islands have sparse data.
+
+**Next**
+- Persist node positions (URL/localStorage), export PNG/SVG, “top outliers” callouts.
+
+
+
+
+
+
 # Life Expectancy — Interactive Exploration
 
 **Live vizzes**
